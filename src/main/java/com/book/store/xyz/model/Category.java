@@ -1,4 +1,4 @@
-package main.java.com.book.store.xyz.model;
+package com.book.store.xyz.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

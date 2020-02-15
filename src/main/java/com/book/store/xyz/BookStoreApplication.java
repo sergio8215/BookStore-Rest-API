@@ -1,4 +1,4 @@
-package main.java.com.book.store.xyz;
+package com.book.store.xyz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

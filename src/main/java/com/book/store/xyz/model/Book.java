@@ -1,6 +1,4 @@
-package main.java.com.book.store.xyz.model;
-
-import java.util.ArrayList;
+package com.book.store.xyz.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
