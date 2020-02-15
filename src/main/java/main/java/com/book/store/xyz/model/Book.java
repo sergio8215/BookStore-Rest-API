@@ -1,4 +1,4 @@
-package main.java.com.book.store.xyz;
+package main.java.com.book.store.xyz.model;
 
 import java.util.ArrayList;
 

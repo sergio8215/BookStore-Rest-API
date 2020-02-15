@@ -1,13 +1,18 @@
-package main.java.com.book.store.xyz;
+package main.java.com.book.store.xyz.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import main.java.com.book.store.xyz.exceptions.BookNotFoundException;
+import main.java.com.book.store.xyz.model.Book;
+import main.java.com.book.store.xyz.repository.BookRepository;
 
 @RestController
 public class BookStoreController {
@@ -33,7 +38,7 @@ public class BookStoreController {
 	// Single item
 	
 	@GetMapping("/books/{id}")
-	Book one(@PathVariable Long id) throws BookNotFoundException {
+	Book one(@PathVariable Long id) {
 		return repository.findById(id)
 				.orElseThrow(() -> new BookNotFoundException(id));
 	}
@@ -52,5 +57,10 @@ public class BookStoreController {
 					newBook.setId(id);
 					return repository.save(newBook);
 				});
+	}
+	
+	@DeleteMapping("/books/{id}")
+	void deleteBook(@PathVariable Long id) {
+		repository.deleteById(id);
 	}
 }
