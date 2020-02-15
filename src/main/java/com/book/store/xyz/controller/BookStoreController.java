@@ -3,11 +3,14 @@ package com.book.store.xyz.controller;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.book.store.xyz.exceptions.BookNotFoundException;
 import com.book.store.xyz.model.Book;
@@ -45,9 +49,18 @@ public class BookStoreController {
 				linkTo(methodOn(BookStoreController.class).all()).withSelfRel());
 	}
 	
-	@PostMapping("books")
-	Book newBook(@RequestBody Book newBook) {
-		return repository.save(newBook);
+	@PostMapping("/books")
+	ResponseEntity<?> newBook(@RequestBody Book newBook) throws
+	URISyntaxException {
+		
+		EntityModel<Book> resource = 
+				assembler.toModel(repository.save(newBook));
+		URI uri = MvcUriComponentsBuilder.fromController(getClass())
+					.buildAndExpand(newBook.getId())
+					.toUri();
+			
+		return ResponseEntity
+				.created(uri).body(resource);
 	}
 	
 	// Single item
@@ -62,9 +75,10 @@ public class BookStoreController {
 	}
 	
 	@PutMapping("/books/{id}")
-	Book replaceBook(@RequestBody Book newBook, @PathVariable Long id) {
+	ResponseEntity<?> replaceBook(@RequestBody Book newBook, @PathVariable Long id) throws
+	URISyntaxException {
 		
-		return repository.findById(id)
+		Book updateBook = repository.findById(id)
 				.map(book -> {
 					book.setName(newBook.getName());
 					book.setIsbn(newBook.getIsbn());
@@ -75,6 +89,16 @@ public class BookStoreController {
 					newBook.setId(id);
 					return repository.save(newBook);
 				});
+		
+		EntityModel<Book> resource = assembler.toModel(updateBook);
+		
+		URI uri = MvcUriComponentsBuilder.fromController(getClass())
+				.buildAndExpand(updateBook.getId())
+				.toUri();
+		
+		return ResponseEntity
+				.created(uri)
+				.body(resource);
 	}
 	
 	@DeleteMapping("/books/{id}")
