@@ -13,7 +13,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/222bff7f1c.js" crossorigin="anonymous"></script>
+
+
+    <title>BookStore XYZ</title>
   </head>
   <body>
     <div class="container"> 
@@ -47,21 +51,24 @@
                                 echo "<table class='table'>";
                                 echo "<thead>";
                                     echo "<tr>";
-                                    echo "<th scope='col'>ID</th>";
-                                    echo "<th scope='col'>ISBN</th>";
-                                    echo "<th scope='col'>Name</th>";
-                                    echo "<th scope='col'>Author</th>";
-                                    echo "<th scope='col'>Categories</th>";
+                                    echo "<th scope='col' class='text-center'>ID</th>";
+                                    echo "<th scope='col' class='text-center'>ISBN</th>";
+                                    echo "<th scope='col' class='text-center'>Name</th>";
+                                    echo "<th scope='col' class='text-center'>Author</th>";
+                                    echo "<th scope='col' class='text-center'>Categories</th>";
+                                    echo "<th scope='col' class='text-center'>Delete</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
 
                                 foreach ( $libros as $libro ) {
                                     echo "<tr>";
-                                        echo "<th scope='row'>".$libro['id']."</th>";
-                                        echo "<td>".$libro['isbn']."</td>";
-                                        echo "<td>".$libro['name']."</td>";
-                                        echo "<td>".$libro['author']."</td>";
+                                        echo "<th scope='row' class='text-center'>".$libro['id']."</th>";
+                                        echo "<td class='text-center'>".$libro['isbn']."</td>";
+                                        echo "<td class='text-center'>".$libro['name']."</td>";
+                                        echo "<td class='text-center'>".$libro['author']."</td>";
+                                        echo "<td class='text-center'>-</td>";
+                                        echo "<td class='text-center'><a href='?delete=". $libro['id'] ."'><i class='fas fa-minus-circle' style='color:#e00707;'></i></a></td>";
                                     echo "</tr>";     
                                 }
 
