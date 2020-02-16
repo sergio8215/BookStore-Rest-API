@@ -1,4 +1,4 @@
-package com.book.store.xyz.controller;
+package com.book.store.xyz.book;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -20,21 +20,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import com.book.store.xyz.exceptions.BookNotFoundException;
-import com.book.store.xyz.model.Book;
-import com.book.store.xyz.repository.BookRepository;
+import com.book.store.xyz.book.exceptions.BookNotFoundException;
 
 @RestController
-public class BookStoreController {
+public class BookController {
 
 	private final BookRepository repository;
 	private final BookRepresentationModelAssembler assembler;
 	
-	BookStoreController(BookRepository repository,
+	BookController(BookRepository repository,
 			BookRepresentationModelAssembler assembler) {
 		this.repository = repository;
 		this.assembler = assembler;
 	}
+	
+//	@RequestMapping("/")
+//	public String root() {
+//		return "index";
+//	}
 	
 	// Aggregate root
 	
@@ -46,7 +49,7 @@ public class BookStoreController {
 				.collect(Collectors.toList());
 		
 		return new CollectionModel<>(books,
-				linkTo(methodOn(BookStoreController.class).all()).withSelfRel());
+				linkTo(methodOn(BookController.class).all()).withSelfRel());
 	}
 	
 	@PostMapping("/books")
@@ -102,7 +105,10 @@ public class BookStoreController {
 	}
 	
 	@DeleteMapping("/books/{id}")
-	void deleteBook(@PathVariable Long id) {
+	ResponseEntity<?> deleteBook(@PathVariable Long id) {
+		
 		repository.deleteById(id);
+		
+		return ResponseEntity.noContent().build();
 	}
 }

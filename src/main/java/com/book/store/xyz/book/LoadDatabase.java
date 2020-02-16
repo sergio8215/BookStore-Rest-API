@@ -1,10 +1,8 @@
-package com.book.store.xyz.repository;
+package com.book.store.xyz.book;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.book.store.xyz.model.Book;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.book.store.xyz.controller;
+package com.book.store.xyz.book;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -6,8 +6,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-
-import com.book.store.xyz.model.Book;
 
 @Component
 public class BookRepresentationModelAssembler implements RepresentationModelAssembler<Book,
@@ -17,7 +15,7 @@ public class BookRepresentationModelAssembler implements RepresentationModelAsse
 	public EntityModel<Book> toModel(Book book) {
 	
 		return new EntityModel<>(book,
-				linkTo(methodOn(BookStoreController.class).one(book.getId())).withSelfRel(),
-				linkTo(methodOn(BookStoreController.class).all()).withRel("book"));
+				linkTo(methodOn(BookController.class).one(book.getId())).withSelfRel(),
+				linkTo(methodOn(BookController.class).all()).withRel("book"));
 	}
 }
