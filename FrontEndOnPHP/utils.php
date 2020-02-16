@@ -25,7 +25,6 @@
         return $libros;
     }
 
-    
     if(isset($_POST['submit'])){ // button name
         sendPost();
     }
@@ -91,11 +90,8 @@
         deleteBook( $_GET['delete']);
     }
 
-    function deleteBook( $bookId ){
-        global $apiURL;
+    function deleteBook( $URL ){
         
-        $URL = $apiURL."/books/".$bookId;
-
         // open the sesion
         $ch = curl_init();
         // define the URL
@@ -116,8 +112,5 @@
             echo "The server responded: <br />";
             echo $info['http_code'] ;
         }
-
     }
-
-
 ?>

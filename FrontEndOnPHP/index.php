@@ -67,7 +67,7 @@
                                         echo "<td class='text-center'>".$libro['name']."</td>";
                                         echo "<td class='text-center'>".$libro['author']."</td>";
                                         echo "<td class='text-center'>-</td>";
-                                        echo "<td class='text-center'><a href='?delete=". $libro['id'] ."'><i class='fas fa-minus-circle' style='color:#e00707;'></i></a></td>";
+                                        echo "<td class='text-center'><a href='?delete=".$libro['_links']['self']['href']."'><i class='fas fa-minus-circle' style='color:#e00707;'></i></a></td>";
                                     echo "</tr>";     
                                 }
 
