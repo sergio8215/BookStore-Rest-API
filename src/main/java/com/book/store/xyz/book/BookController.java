@@ -34,11 +34,6 @@ public class BookController {
 		this.assembler = assembler;
 	}
 	
-//	@RequestMapping("/")
-//	public String root() {
-//		return "index";
-//	}
-	
 	// Aggregate root
 	
 	@GetMapping("/books")
